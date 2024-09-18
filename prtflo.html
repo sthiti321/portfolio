@@ -1,0 +1,602 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Portfolio</title>
+
+    <style>
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    scroll-behavior: smooth;
+}
+
+body {
+    font-family: 'Poppins', sans-serif;
+    background-color: #0d0d0d;
+    color: #fff;
+    overflow-x: hidden;
+    position: relative;
+}
+
+#prepage {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background: black;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 1000;
+}
+
+#prepage #openButton {
+    padding: 20px 40px;
+    font-size: 1.5rem;
+    color: #0d0d0d;
+    background-color: #00ffdd;
+    border: none;
+    border-radius: 30px;
+    cursor: pointer;
+    transition: background 0.3s;
+}
+
+#prepage #openButton:hover {
+    background-color: #00d1b2;
+}
+
+nav {
+    width: 100%;
+    background: rgba(0, 0, 0, 0.8);
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 999;
+}
+
+.nav-container {
+    max-width: 1200px;
+    margin: auto;
+    padding: 0 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: 60px;
+}
+
+.nav-logo {
+    font-size: 1.5rem;
+    color: #fff;
+    text-decoration: none;
+    font-weight: 700;
+    text-shadow: 0 0 10px #00ffdd;
+}
+
+.nav-menu {
+    display: flex;
+    list-style: none;
+}
+
+.nav-item {
+    margin-left: 30px;
+}
+
+.nav-link {
+    color: #fff;
+    text-decoration: none;
+    font-size: 1rem;
+    position: relative;
+    padding: 5px 0;
+    transition: color 0.3s;
+}
+
+.nav-link::after {
+    content: '';
+    position: absolute;
+    width: 0%;
+    height: 2px;
+    bottom: 0;
+    left: 0;
+    background-color: #00ffdd;
+    transition: all 0.3s;
+}
+
+.nav-link:hover::after {
+    width: 100%;
+}
+
+.nav-link:hover {
+    color: #00ffdd;
+}
+
+.hamburger {
+    display: none;
+    flex-direction: column;
+    cursor: pointer;
+}
+
+.bar {
+    width: 25px;
+    height: 3px;
+    background-color: #fff;
+    margin: 4px 0;
+    transition: all 0.3s;
+}
+
+#home {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    text-align: center;
+    background: rgba(0, 0, 0, 0.7);
+}
+
+.home-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 30px;
+}
+
+.profile-pic img {
+    width: 200px;
+    height: 200px;
+    border-radius: 50%;
+    border: 5px solid #00ffdd;
+    object-fit: cover;
+    box-shadow: 0 0 20px #00ffdd;
+}
+
+.intro-text h2 {
+    font-size: 2rem;
+}
+
+.intro-text h2 span {
+    color: #00ffdd;
+}
+
+.intro-text h3 {
+    font-size: 1.5rem;
+    color: #ccc;
+    height: 40px;
+    overflow: hidden;
+}
+
+.intro-text .btn {
+    margin-top: 20px;
+    padding: 12px 25px;
+    font-size: 1rem;
+    color: #0d0d0d;
+    background-color: #00ffdd;
+    border: none;
+    border-radius: 30px;
+    cursor: pointer;
+    transition: background 0.3s;
+}
+
+.intro-text .btn:hover {
+    background-color: #00d1b2;
+}
+
+#about {
+    padding: 100px 20px;
+    text-align: center;
+}
+
+.about-content {
+    position: relative;
+}
+
+.about-panel {
+    background: rgba(0, 0, 0, 0.7);
+    padding: 30px;
+    border-radius: 10px;
+    max-width: 800px;
+    margin: 0 auto;
+    box-shadow: 0 0 20px rgba(0, 255, 221, 0.5);
+    color: #ccc;
+}
+
+.about-panel p {
+    font-size: 1.1rem;
+    line-height: 1.8;
+}
+
+#education {
+    padding: 100px 20px;
+}
+
+.education-content {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 30px;
+}
+
+.edu-card {
+    background: rgba(0, 0, 0, 0.7);
+    padding: 30px;
+    border-radius: 10px;
+    width: 300px;
+    box-shadow: 0 0 20px rgba(0, 255, 221, 0.5);
+    transition: transform 0.3s;
+    color: #ccc;
+}
+
+.edu-card:hover {
+    transform: translateY(-10px);
+}
+
+.edu-card h3 {
+    font-size: 1.5rem;
+    margin-bottom: 20px;
+    color: #00ffdd;
+}
+
+.edu-card p {
+    font-size: 1rem;
+    margin-bottom: 10px;
+}
+
+#projects {
+    padding: 100px 20px;
+}
+
+.projects-content {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 30px;
+}
+
+.project-card {
+    background: rgba(0, 0, 0, 0.7);
+    padding: 20px;
+    border-radius: 10px;
+    width: 300px;
+    box-shadow: 0 0 20px rgba(0, 255, 221, 0.5);
+    transition: transform 0.3s;
+    text-align: left;
+    color: #ccc;
+}
+
+.project-card:hover {
+    transform: translateY(-10px);
+}
+
+.project-card img {
+    width: 100%;
+    border-radius: 10px;
+    margin-bottom: 15px;
+}
+
+.project-card h3 {
+    font-size: 1.5rem;
+    margin-bottom: 10px;
+    color: #00ffdd;
+}
+
+.project-card p {
+    font-size: 1rem;
+    margin-bottom: 15px;
+}
+
+.project-link {
+    font-size: 1rem;
+    color: #00ffdd;
+    text-decoration: none;
+    border-bottom: 1px solid transparent;
+    transition: border-bottom 0.3s;
+}
+
+.project-link:hover {
+    border-bottom: 1px solid #00ffdd;
+}
+
+#contacts {
+    padding: 100px 20px;
+}
+
+.contact-content {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 50px;
+}
+
+.contact-info {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.contact-item {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    font-size: 1.1rem;
+    color: #ccc;
+}
+
+.contact-item i {
+    font-size: 1.5rem;
+    color: #00ffdd;
+}
+
+.contact-form {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    width: 400px;
+}
+
+.contact-form input,
+.contact-form textarea {
+    width: 100%;
+    padding: 15px;
+    border: 2px solid #333;
+    border-radius: 5px;
+    background: transparent;
+    color: #fff;
+    font-size: 1rem;
+    resize: none;
+}
+
+.contact-form input:focus,
+.contact-form textarea:focus {
+    border-color: #00ffdd;
+    outline: none;
+}
+
+.contact-form button {
+    padding: 15px;
+    border: none;
+    border-radius: 30px;
+    background-color: #00ffdd;
+    color: #0d0d0d;
+    font-size: 1.1rem;
+    cursor: pointer;
+    transition: background 0.3s;
+}
+
+.contact-form button:hover {
+    background-color: #00d1b2;
+}
+
+.back-to-top {
+    position: fixed;
+    bottom: 30px;
+    right: 30px;
+    background: #00ffdd;
+    color: #0d0d0d;
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    display: none;
+    justify-content: center;
+    align-items: center;
+    font-size: 1.5rem;
+    cursor: pointer;
+    z-index: 1000;
+    transition: background 0.3s;
+}
+
+.back-to-top:hover {
+    background: #00d1b2;
+}
+
+@media screen and (max-width: 768px) {
+    .nav-menu {
+        position: fixed;
+        top: 60px;
+        right: -100%;
+        width: 200px;
+        height: calc(100% - 60px);
+        background: rgba(0, 0, 0, 0.9);
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        gap: 30px;
+        transition: right 0.3s;
+    }
+
+    .nav-menu.active {
+        right: 0;
+    }
+
+    .hamburger {
+        display: flex;
+    }
+}
+
+    </style>
+
+ </head>
+<body>
+    <div id="prepage">
+        <button id="openButton">Open Me</button>
+    </div>
+
+        <nav>
+            <div class="nav-container">
+                <a href="#" class="nav-logo">Sthitipragyan Pradhan</a>
+                <ul class="nav-menu">
+                    <li class="nav-item"><a href="#home" class="nav-link">Home</a></li>
+                    <li class="nav-item"><a href="#about" class="nav-link">About</a></li>
+                    <li class="nav-item"><a href="#education" class="nav-link">Education</a></li>
+                    <li class="nav-item"><a href="#projects" class="nav-link">Projects</a></li>
+                    <li class="nav-item"><a href="#contacts" class="nav-link">Contacts</a></li>
+                </ul>
+                <div class="hamburger">
+                    <div class="bar"></div>
+                    <div class="bar"></div>
+                    <div class="bar"></div>
+                </div>
+            </div>
+        </nav>
+
+        <section id="home" class="section">
+            <div class="home-content">
+                <div class="profile-pic">
+                    <img src="c:\Users\sthit\Desktop\IMG_20240826_124347.jpg" alt="Profile Picture">
+                </div>
+                <div class="intro-text">
+                    <h2>Hello, I'm <span>STHITIPRAGYAN PRADHAN</span></h2>
+                    <h3>Welcome to my portfolio</h3>
+                    <a href="#contacts" class="btn">Hire Me</a>
+                </div>
+            </div>
+        </section>
+
+        <section id="about" class="section">
+            <div class="about-content">
+                <div class="about-panel">
+                    <p>I am a passionate student focused on developing skills in web design and development.
+                        I love creating interactive and responsive web applications that provide excellent user experiences.
+                        I'm always eager to learn new technologies and improve my skill set.
+                    </p>
+                </div>
+            </div>
+        </section>
+
+        <section id="education" class="section">
+            <div class="education-content">
+                <div class="edu-card">
+                    <h3>High School</h3>
+                    <p><strong>Institution:</strong> Sri Chaitanya Jr Kalasala</p>
+                    <p><strong>Year:</strong> 2022</p>
+                    <p><strong>Achievements:</strong> Top 10%</p>
+                </div>
+                <div class="edu-card">
+                    <h3>University</h3>
+                    <p><strong>Institution:</strong> JB Institute of Engineering and Technology</p>
+                    <p><strong>Year:</strong> 2023 - Present</p>
+                    <p><strong>Course:</strong> Bachelor of Technology in electronics and communication.</p>
+                </div>
+            </div>
+        </section>
+
+        <section id="projects" class="section">
+            <div class="projects-content">
+                <div class="project-card">
+                    <img src="c:\Users\sthit\Downloads\1724913300360.jpg" alt="Project 1">
+                    <h3>Project 1</h3>
+                    <p>i made a html project on a pizza delivery website.</p>
+                    <a href="#" class="project-link">View Project</a>
+                </div>
+                <div class="project-card">
+                    <img src="c:\Users\sthit\Downloads\1724913298790.jpg" alt="Project 2">
+                    <h3>Project 2</h3>
+                    <p>the above project is on a currency converter website with current currency trends.</p>
+                    <a href="#" class="project-link">View Project</a>
+                </div>
+                 <div class="project-card">
+                    <img src="c:\Users\sthit\Downloads\1724913296391.jpg" alt="Project 3">
+                    <h3>Project 3</h3>
+                    <p>Description of project 2.</p>
+                    <a href="#" class="project-link">View Project</a>
+                </div>
+                <div class="project-card">
+                    <img src="c:\Users\sthit\Downloads\download (4).jpg" alt="Project 4">
+                    <h3>Project 4</h3>
+                    <p>Description of project 2.</p>
+                    <a href="#" class="project-link">View Project</a>
+                </div>
+
+            </div>
+        </section>
+
+        <section id="contacts" class="section">
+            <div class="contact-content">
+                <div class="contact-info">
+                    <div class="contact-item"><i class="fas fa-envelope"></i>Email: your.email@example.com</div>
+                    <div class="contact-item"><i class="fas fa-phone"></i>Phone: +123 456 7890</div>
+                </div>
+                <form class="contact-form">
+                    <input type="text" placeholder="Your Name" required>
+                    <input type="email" placeholder="Your Email" required>
+                    <textarea placeholder="Your Message" rows="5" required></textarea>
+                    <button type="submit">Send Message</button>
+                </form>
+            </div>
+        </section>
+
+        <div class="back-to-top" id="backToTop">&#9650;</div>
+    </div>
+
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+    const openButton = document.getElementById('openButton');
+    const prepage = document.getElementById('prepage');
+    const mainContent = document.getElementById('main-content');
+
+    openButton.addEventListener('click', () => {
+        prepage.style.display = 'none';
+        mainContent.style.display = 'block';
+    });
+
+    const backToTopButton = document.getElementById('backToTop');
+
+    window.addEventListener('scroll', () => {
+        if (window.scrollY > 300) {
+            backToTopButton.style.display = 'flex';
+        } else {
+            backToTopButton.style.display = 'none';
+        }
+    });
+
+    backToTopButton.addEventListener('click', () => {
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+    });
+
+    const hamburger = document.querySelector('.hamburger');
+    const navMenu = document.querySelector('.nav-menu');
+
+    hamburger.addEventListener('click', () => {
+        navMenu.classList.toggle('active');
+    });
+
+    const canvas = document.getElementById('stars-canvas');
+    const ctx = canvas.getContext('2d');
+
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+
+    const stars = [];
+    const numStars = 200;
+
+    for (let i = 0; i < numStars; i++) {
+        stars.push({
+            x: Math.random() * canvas.width,
+            y: Math.random() * canvas.height,
+            size: Math.random() * 2 + 1
+        });
+    }
+
+    function drawStars() {
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        ctx.fillStyle = '#fff';
+        stars.forEach(star => {
+            ctx.beginPath();
+            ctx.arc(star.x, star.y, star.size, 0, Math.PI * 2);
+            ctx.fill();
+        });
+    }
+
+    function animate() {
+        drawStars();
+        requestAnimationFrame(animate);
+    }
+
+    animate();
+});
+
+    </script>
+</body>
+</html>
